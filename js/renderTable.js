@@ -47,7 +47,7 @@
 
     function renderTable(data) {
         // define data array
-        const tableData = $.csv.toObjects(data).map(row => {
+        const tableData = $.csv.toObjects(data).filter(row => row["Manual Tags"] === "Viewed").map(row => {
             const note = new Note(row["Notes"], row["Manual Tags"]);
             return {
                 title: row["Title"],
@@ -63,6 +63,8 @@
                 opinion: note.opinion
             }
         }).filter(row => !["Unread", "Unreviewed"].includes(row.brief));
+
+        console.log("My Library.csv Loaded")
 
         // initialize table
         const table = new Tabulator("#table", {
